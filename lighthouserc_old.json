@@ -28,6 +28,7 @@
     "upload": {
       "target": "temporary-public-storage"
     },
+
     "assertBaseline": {
       "assertions": {
         "first-contentful-paint": ["error", { "maxNumericValue": 1500 }]

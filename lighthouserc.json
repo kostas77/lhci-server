@@ -11,15 +11,16 @@
         "sqlUsername": "kostastseronis",
         "sqlPassword": "kostas77",
         "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
-      }
+      },
+      "allowDuplicateBuilds": true
     },
     "upload": {
       "target": "lhci",
       "serverBaseUrl": "http://localhost:9001/",
-      "token": "ae1450f8-b864-4502-bb8a-e1199eb48562"
+      "token": "8e8eb859-ab1c-464b-8a35-e009a1b0a8ec"
     },
     "collect": {
-      "numberOfRuns": 3,
+      "numberOfRuns": 1,
       "url": [
         "https://www.us.elsevierhealth.com/",
         "https://www.elsevier-masson.fr/"
