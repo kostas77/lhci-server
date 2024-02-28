@@ -1,0 +1,12 @@
+{
+  "name": "Java test automation Selenium framework",
+  "version": "1.0.0",
+  "description": "Lighthouse CI integration",
+  "scripts": {
+    "lhci": "lhci autorun --upload.target=temporary-public-storage || echo 'LHCI failed!'"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.13.x"
+  }
+}
+

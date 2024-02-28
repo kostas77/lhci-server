@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  lhci-mysql-db:
+    image: mysql
+    container_name: lhci-mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: kostas77
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql
+    networks:
+      - lhci-network
+
+  lhci-server:
+    image: patrickhulce/lhci-server
+    container_name: lhci-server
+    ports:
+      - "9001:9001"
+    volumes:
+      - /home/kostastseronis/CODE/lhci-server/lighthouserc.json:/usr/src/lhci/lighthouserc.json
+    networks:
+      - lhci-network
+
+networks:
+  lhci-network:
+    driver: bridge

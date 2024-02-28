@@ -1,0 +1,32 @@
+{
+  "ci": {
+    "server": {
+      "port": 9001,
+      "storage": {
+        "storageMethod": "sql",
+        "sqlDialect": "mysql",
+        "sqlHost": "lhci-mysql-db",
+        "sqlPort": 3306,
+        "sqlDatabase": "lhci",
+        "sqlUsername": "kostastseronis",
+        "sqlPassword": "kostas77",
+        "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
+      }
+    },
+    "upload": {
+      "target": "lhci",
+      "serverBaseUrl": "http://localhost:9001/",
+      "token": "ae1450f8-b864-4502-bb8a-e1199eb48562"
+    },
+    "collect": {
+      "numberOfRuns": 3,
+      "url": [
+        "https://www.us.elsevierhealth.com/",
+        "https://www.elsevier-masson.fr/"
+      ],
+      "settings": {
+        "preset": "desktop"
+      }
+    }
+  }
+}

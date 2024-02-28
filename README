@@ -1,0 +1,52 @@
+docker network create lhci-network
+
+docker run -d --name lhci-mysql-db --network lhci-network -p 3306:3306 -e MYSQL_ROOT_PASSWORD=kostas77 -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql
+
+docker exec -it lhci-mysql-db mysql -uroot -p
+
+CREATE DATABASE lhci;CREATE USER 'kostastseronis'@'%' IDENTIFIED BY 'kostas77';GRANT ALL PRIVILEGES ON lhci.* TO 'kostastseronis'@'%';FLUSH PRIVILEGES;
+
+docker run -d -p 9001:9001 --name lhci-server --network lhci-network -v /home/kostastseronis/CODE/lhci-server/lighthouserc.json:/usr/src/lhci/lighthouserc.json patrickhulce/lhci-server
+
+Here's what each component of the command does:
+-it: This option ensures that Docker runs in interactive mode with a terminal, allowing you to interact with the LHCI wizard.
+--rm: This option ensures that the Docker container is removed after you exit the interactive session. This is generally useful to keep your environment clean, especially when running containers in interactive mode for one-off commands.
+-p 9001:9001: This binds port 9001 of your host machine to port 9001 of the container, which is the port LHCI server runs on.
+-v /home/ec2-user/lighthouserc.json:/usr/src/lhci/lighthouserc.json: This mounts the lighthouserc.json file from your host machine to the specified path in the container. This ensures that when LHCI runs inside the container, it uses your configuration.patrickhulce/lhci-server: This is the name of the Docker image you're using.
+
+
+Here's a rough outline of how you can manually create a new project using the Lighthouse CI server API:
+
+    API Endpoint:
+        The endpoint for creating a new project is usually POST /v1/projects.
+
+    Sample cURL command:
+
+    curl -X POST "http://localhost:9001/v1/projects" \
+         -H "Content-Type: application/json" \
+         -d '{
+             "name": "My New Project",
+             "externalUrl": "http://example.com",
+             "slug": "my-new-project"
+           }'
+
+        Replace localhost with your server's address if it's not local.
+        You can adjust the name, externalUrl, and slug as necessary.
+
+    Response:
+        The server should respond with a JSON payload that includes details about the project, including the token. This token is what you would use as the build token when running Lighthouse CI against this project.
+
+---------------------------------------------------------------------------
+EXAMPLE
+
+curl -X POST "http://localhost:9001/v1/projects" \
+     -H "Content-Type: application/json" \
+     -d '{
+         "name": "eCom-Regional-USHS",
+         "externalUrl": "https://www.us.elsevierhealth.com/",
+         "slug": "USHS"
+       }'
+
+response:
+{"name":"eCom-Regional-USHS","externalUrl":"https://www.us.elsevierhealth.com/","slug":"ecom-regional-ushs","baseBranch":"master","adminToken":"RdlkgAxoMoFeSleQwq8l43AKoRKt6clASja8PDVL","token":"cf063c50-a66d-4368-b064-89c4d60f1821","id":"840b4e2a-10e2-4f0f-8b14-f2fe6276ff23","updatedAt":"2024-02-27T21:02:39.015Z","createdAt":"2024-02-27T21:02:39.015Z"}
+chrome

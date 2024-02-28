@@ -1,0 +1,37 @@
+{
+  "ci": {
+    "storage": {
+      "storageMethod": "sql",
+      "sqlDialect": "mysql",
+      "sqlHost": "lhci-mysql-db",
+      "sqlPort": 3306,
+      "sqlDatabase": "lhci",
+      "sqlUsername": "kostastseronis",
+      "sqlPassword": "kostas77",
+      "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
+    },
+    "collect": {
+      "numberOfRuns": 3,
+      "url": [
+        "https://example.com",
+        "https://example.com/page2"
+      ],
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "first-contentful-paint": ["error", { "maxNumericValue": 1500 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "assertBaseline": {
+      "assertions": {
+        "first-contentful-paint": ["error", { "maxNumericValue": 1500 }]
+      }
+    }
+  }
+}
