@@ -42,9 +42,9 @@ EXAMPLE
 curl -X POST "http://localhost:9001/v1/projects" \
      -H "Content-Type: application/json" \
      -d '{
-         "name": "eCom-Regional-USHS",
-         "externalUrl": "https://www.us.elsevierhealth.com/",
-         "slug": "USHS"
+         "name": "eCommerce-Regional-B2C",
+         "externalUrl": "",
+         "slug": "eCom-B2C"
        }'
 
 response:
