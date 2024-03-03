@@ -1,3 +1,4 @@
+docker network rm lhci-network
 docker network create lhci-network
 
 docker run -d --name lhci-mysql-db --network lhci-network -p 3306:3306 -e MYSQL_ROOT_PASSWORD=kostas77 -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql
@@ -50,3 +51,6 @@ curl -X POST "http://localhost:9001/v1/projects" \
 response:
 {"name":"eCom-Regional-USHS","externalUrl":"https://www.us.elsevierhealth.com/","slug":"ecom-regional-ushs","baseBranch":"master","adminToken":"RdlkgAxoMoFeSleQwq8l43AKoRKt6clASja8PDVL","token":"cf063c50-a66d-4368-b064-89c4d60f1821","id":"840b4e2a-10e2-4f0f-8b14-f2fe6276ff23","updatedAt":"2024-02-27T21:02:39.015Z","createdAt":"2024-02-27T21:02:39.015Z"}
 chrome
+
+
+LHCI_BUILD_CONTEXT__CURRENT_HASH='test124' LHCI_BUILD_CONTEXT__COMMIT_MESSAGE='test message' LHCI_BUILD_CONTEXT__AUTHOR='test author' LHCI_BUILD_CONTEXT__AVATAR_URL='test avatar url' LHCI_BUILD_CONTEXT__COMMIT_TIME='2024-02-27T11:30:00.000Z' npx lhci autorun

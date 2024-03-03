@@ -17,7 +17,7 @@
     "upload": {
       "target": "lhci",
       "serverBaseUrl": "http://localhost:9001/",
-      "token": "8e8eb859-ab1c-464b-8a35-e009a1b0a8ec"
+      "token": "213def4d-8be4-4b5d-add1-e933f5807b5e"
     },
     "collect": {
       "numberOfRuns": 1,
@@ -27,6 +27,15 @@
       ],
       "settings": {
         "preset": "desktop"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": "off",
+        "categories:accessibility": "off",
+        "categories:best-practices": "off",
+        "categories:seo": "off",
+        "categories:pwa": "off"
       }
     }
   }
