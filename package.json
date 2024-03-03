@@ -4,7 +4,8 @@
   "description": "Lighthouse CI integration for ERHS",
   "scripts": {
     "lhci-default": "lhci autorun --upload.target=temporary-public-storage || echo 'LHCI failed!'",
-    "lhci-autorun-override": "export LHCI_BUILD_CONTEXT__CURRENT_HASH=$(node -e \"console.log(require('crypto').createHash('md5').update(Date.now().toString() + Math.random().toString()).digest('hex'))\") && LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=$(date +\"%Y-%m-%d %H:%M:%S\") LHCI_BUILD_CONTEXT__AUTHOR='tseronisk' LHCI_BUILD_CONTEXT__AVATAR_URL='N\\A' LHCI_BUILD_CONTEXT__COMMIT_TIME=$(date -u +\"%Y-%m-%dT%H:%M:%S.000Z\") npx lhci autorun"
+    "lhci-autorun-override": "export LHCI_BUILD_CONTEXT__CURRENT_HASH=$(node -e \"console.log(require('crypto').createHash('md5').update(Date.now().toString() + Math.random().toString()).digest('hex'))\") && LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=$(date +\"%Y-%m-%d %H:%M:%S\") LHCI_BUILD_CONTEXT__AUTHOR='tseronisk' LHCI_BUILD_CONTEXT__AVATAR_URL='N\\A' LHCI_BUILD_CONTEXT__COMMIT_TIME=$(date -u +\"%Y-%m-%dT%H:%M:%S.000Z\") npx lhci autorun",
+    "lhci-autorun-override-debug": "export LHCI_BUILD_CONTEXT__CURRENT_HASH=$(node -e \"console.log(require('crypto').createHash('md5').update(Date.now().toString() + Math.random().toString()).digest('hex'))\") && LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=$(date +\"%Y-%m-%d %H:%M:%S\") LHCI_BUILD_CONTEXT__AUTHOR='tseronisk' LHCI_BUILD_CONTEXT__AVATAR_URL='N\\A' LHCI_BUILD_CONTEXT__COMMIT_TIME=$(date -u +\"%Y-%m-%dT%H:%M:%S.000Z\") npx lhci autorun --debug"
   },
   "devDependencies": {
     "@lhci/cli": "^0.13.x",
