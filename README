@@ -54,3 +54,5 @@ chrome
 
 
 LHCI_BUILD_CONTEXT__CURRENT_HASH='test124' LHCI_BUILD_CONTEXT__COMMIT_MESSAGE='test message' LHCI_BUILD_CONTEXT__AUTHOR='test author' LHCI_BUILD_CONTEXT__AVATAR_URL='test avatar url' LHCI_BUILD_CONTEXT__COMMIT_TIME='2024-02-27T11:30:00.000Z' npx lhci autorun
+
+jenkins workspace on locally running jenkins can be found in 'kostastseronis@mini-pc:~$ cd /var/lib/jenkins/workspace'

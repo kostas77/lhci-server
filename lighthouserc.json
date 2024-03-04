@@ -22,10 +22,7 @@
     "collect": {
       "numberOfRuns": 1,
       "url": [
-        "https://www.us.elsevierhealth.com/",
-        "https://www.elsevier-masson.fr/",
-        "https://www.uk.elsevierhealth.com/",
-        "https://www.elsevierhealth.com.au/"
+        "https://www.us.elsevierhealth.com/"
       ],
       "settings": {
         "preset": "desktop"
