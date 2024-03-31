@@ -23,7 +23,10 @@
       "numberOfRuns": 2,
       "url": [
         "https://www.us.elsevierhealth.com/",
-        "https://www.elsevier-masson.fr/"
+        "https://www.elsevier-masson.fr/",
+        "https://www.eu.elsevierhealth.com/",
+        "https://shop.elsevier.de/",
+        "https://shop.elsevier.com/"
       ],
       "settings": {
         "preset": "desktop"
