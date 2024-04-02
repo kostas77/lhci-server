@@ -1,7 +1,7 @@
 docker network rm lhci-network
 docker network create lhci-network
 
-docker run -d --name lhci-mysql-db --network lhci-network -p 3306:3306 -e MYSQL_ROOT_PASSWORD=kostas77 -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql
+docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=kostas77 -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql
 
 docker exec -it lhci-mysql-db mysql -uroot -p
 
@@ -56,3 +56,48 @@ chrome
 LHCI_BUILD_CONTEXT__CURRENT_HASH='test124' LHCI_BUILD_CONTEXT__COMMIT_MESSAGE='test message' LHCI_BUILD_CONTEXT__AUTHOR='test author' LHCI_BUILD_CONTEXT__AVATAR_URL='test avatar url' LHCI_BUILD_CONTEXT__COMMIT_TIME='2024-02-27T11:30:00.000Z' npx lhci autorun
 
 jenkins workspace on locally running jenkins can be found in 'kostastseronis@mini-pc:~$ cd /var/lib/jenkins/workspace'
+
+
+
+JENKINS SHELL SCRIPT
+
+#!/bin/bash
+
+# Generate a random hash/branch using Node.js
+export LHCI_BUILD_CONTEXT__CURRENT_HASH=$(node -e "console.log(require('crypto').createHash('md5').update(Date.now().toString() + Math.random().toString()).digest('hex'))")
+#export LHCI_BUILD_CONTEXT__CURRENT_BRANCH=$(node -e "console.log(require('crypto').createHash('md5').update(Date.now().toString() + Math.random().toString()).digest('hex'))")
+export LHCI_BUILD_CONTEXT__CURRENT_BRANCH='main'
+
+# Set commit message using current date/time
+export LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=$(date +"%Y-%m-%d %H:%M:%S")
+
+# Set other lhci environment variables
+export LHCI_BUILD_CONTEXT__AUTHOR='tseronisk'
+export LHCI_BUILD_CONTEXT__AVATAR_URL='N\\A'
+export LHCI_BUILD_CONTEXT__COMMIT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
+#export LHCI_GITHUB_TOKEN='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'
+
+sudo apt update
+#sudo apt-get install fonts-liberation
+#sudo apt install -y wget gnupg
+#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 2>/dev/null
+#sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+export CHROMEDRIVER_VERSION=$(cat LATEST_RELEASE)
+wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/local/bin/
+
+google-chrome --version
+
+ls -la
+node -v
+#npm install
+npm install -g @lhci/cli@0.13.x
+env
+#sudo chmod 1777 /tmp
+
+#npx lhci autorun
+#lhci autorun --config=lighthouserc.json
+npm run lhci-autorun-override-debug
