@@ -50,7 +50,6 @@ curl -X POST "http://localhost:9001/v1/projects" \
 
 response:
 {"name":"eCom-Regional-USHS","externalUrl":"https://www.us.elsevierhealth.com/","slug":"ecom-regional-ushs","baseBranch":"master","adminToken":"RdlkgAxoMoFeSleQwq8l43AKoRKt6clASja8PDVL","token":"cf063c50-a66d-4368-b064-89c4d60f1821","id":"840b4e2a-10e2-4f0f-8b14-f2fe6276ff23","updatedAt":"2024-02-27T21:02:39.015Z","createdAt":"2024-02-27T21:02:39.015Z"}
-chrome
 
 {"name":"eCommerce-B2C-home-desktop","externalUrl":"","slug":"ecommerce-b2c-home-desktop","baseBranch":"master","adminToken":"1U6mSYqHP897h1WANcs1UPgP0KnTR2A7rnIlfoHh","token":"c11089bf-abc0-4719-9dff-cdfdc0990e35","id":"c940fb91-fc3c-4cee-bbd3-f3635457c726","updatedAt":"2024-04-05T17:49:04.526Z","createdAt":"2024-04-05T17:49:04.526Z"}
 {"name":"eCommerce-B2C-home-mobile","externalUrl":"","slug":"ecommerce-b2c-home-mobile","baseBranch":"master","adminToken":"zrrUDfNkaUE0sGUmxafbl7zx6el6hgfI7xHPJ1j9","token":"7da28972-b163-4d78-94df-9eb87dabdec9","id":"6574e62b-9438-4a90-a8c7-28bc995dea8c","updatedAt":"2024-04-05T17:50:39.652Z","createdAt":"2024-04-05T17:50:39.652Z"}
