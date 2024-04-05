@@ -1,0 +1,51 @@
+{
+  "ci": {
+    "server": {
+      "port": 9001,
+      "storage": {
+        "storageMethod": "sql",
+        "sqlDialect": "mysql",
+        "sqlHost": "lhci-mysql-db",
+        "sqlPort": 3306,
+        "sqlDatabase": "lhci",
+        "sqlUsername": "kostastseronis",
+        "sqlPassword": "kostas77",
+        "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
+      },
+      "allowDuplicateBuilds": true
+    },
+    "upload": {
+      "target": "lhci",
+      "serverBaseUrl": "http://localhost:9001/",
+      "token": "c11089bf-abc0-4719-9dff-cdfdc0990e35"
+    },
+    "collect": {
+      "numberOfRuns": 3,
+      "url": [
+        "https://www.us.elsevierhealth.com/",
+        "https://www.elsevier-masson.fr/",
+        "https://www.eu.elsevierhealth.com/",
+        "https://shop.elsevier.de/",
+        "https://www.elsevierhealth.com.au/",
+        "https://tienda.elsevier.es/",
+        "https://tienda.elsevierhealth.com/",
+        "https://www.uk.elsevierhealth.com/",
+        "https://www.mea.elsevierhealth.com/",
+        "https://www.asia.elsevierhealth.com/",
+        "https://shop.elsevier.com/"
+      ],
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": "off",
+        "categories:accessibility": "off",
+        "categories:best-practices": "off",
+        "categories:seo": "off",
+        "categories:pwa": "off"
+      }
+    }
+  }
+}
