@@ -1,6 +1,7 @@
 .idea
 .lighthouseci
 lhci-mysql-db-data
+package-lock.json
 
 # Logs
 logs
