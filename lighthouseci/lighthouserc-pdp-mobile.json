@@ -17,7 +17,7 @@
     "upload": {
       "target": "lhci",
       "serverBaseUrl": "http://localhost:9001/",
-      "token": "213def4d-8be4-4b5d-add1-e933f5807b5e"
+      "token": "gA68rScvoK6GnmuOPg4kjfcgaT6BjWlaLPQ0PR5o"
     },
     "collect": {
       "numberOfRuns": 3,
@@ -35,7 +35,14 @@
         "https://shop.elsevier.com/books/cheese-problems-solved/mcsweeney/978-1-84569-060-1"
       ],
       "settings": {
-        "preset": "mobile"
+        "emulatedFormFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 360,
+          "height": 640,
+          "deviceScaleFactor": 2,
+          "disabled": false
+        }
       }
     },
     "assert": {
