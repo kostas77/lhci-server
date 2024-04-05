@@ -1,0 +1,2013 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 5,
+      "panels": [],
+      "title": "Latest scores",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "description": "latest",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "displayMode": "basic",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  s1.url,\n  s1.value AS seo_score,\n  s1.createdAt\nFROM\n  statistics s1\nINNER JOIN (\n  SELECT\n    url,\n    MAX(createdAt) AS maxCreatedAt\n  FROM\n    statistics\n  WHERE\n    name = 'category_seo_median'\n  GROUP BY\n    url\n) s2 ON s1.url = s2.url AND s1.createdAt = s2.maxCreatedAt\nWHERE\n  s1.name = 'category_seo_median';\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Latest SEO scores",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "description": "latest",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "basic",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  s1.url,\n  s1.value AS a11y_score,\n  s1.createdAt\nFROM\n  statistics s1\nINNER JOIN (\n  SELECT\n    url,\n    MAX(createdAt) AS maxCreatedAt\n  FROM\n    statistics\n  WHERE\n    name = 'category_accessibility_median'\n  GROUP BY\n    url\n) s2 ON s1.url = s2.url AND s1.createdAt = s2.maxCreatedAt\nWHERE\n  s1.name = 'category_accessibility_median';\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Latest Accessibility scores",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ASIA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.asia.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ASIA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS US_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.us.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "US",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS LATAM_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://tienda.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "LATAM",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS UK_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.uk.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "UK",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS EU_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.eu.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "EU",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS FR_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.elsevier-masson.fr/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "FR",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS DE_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://shop.elsevier.de/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "DE",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS MEA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.mea.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "MEA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ANZ_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://www.elsevierhealth.com.au/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ANZ",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS SP_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://tienda.elsevier.es/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "SP",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS GLOBAL,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'category_performance_median' AND\n  statistics.url = 'https://shop.elsevier.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "GLOBAL",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Performance Score - Home Page (median)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 2,
+      "panels": [],
+      "title": "Performance Metrics - Home Page",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 2700
+              },
+              {
+                "color": "red",
+                "value": 4000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ASIA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.asia.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ASIA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS US_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.us.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "US",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS LATAM_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://tienda.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "LATAM",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS UK_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.uk.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "UK",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS EU_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.eu.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "EU",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS FR_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.elsevier-masson.fr/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "FR",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS DE_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://shop.elsevier.de/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "DE",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS MEA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.mea.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "MEA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ANZ_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://www.elsevierhealth.com.au/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ANZ",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS SP_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://tienda.elsevier.es/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "SP",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS GLOBAL,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_speed-index_median' AND\n  statistics.url = 'https://shop.elsevier.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "GLOBAL",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Speed Index (median)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 2200
+              },
+              {
+                "color": "red",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ASIA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.asia.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ASIA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS US_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.us.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "US",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS LATAM_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://tienda.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "LATAM",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS UK_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.uk.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "UK",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS EU_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.eu.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "EU",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS FR_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.elsevier-masson.fr/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "FR",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS DE_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://shop.elsevier.de/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "DE",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS MEA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.mea.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "MEA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ANZ_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://www.elsevierhealth.com.au/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ANZ",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS SP_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://tienda.elsevier.es/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "SP",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS GLOBAL,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_interactive_median' AND\n  statistics.url = 'https://shop.elsevier.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "GLOBAL",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Time to Interactive (median)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 2200
+              },
+              {
+                "color": "red",
+                "value": 3000
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 47
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ASIA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.asia.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ASIA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS US_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.us.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "US",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS LATAM_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://tienda.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "LATAM",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS UK_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.uk.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "UK",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS EU_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.eu.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "EU",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS FR_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.elsevier-masson.fr/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "FR",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS DE_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://shop.elsevier.de/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "DE",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS MEA_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.mea.elsevierhealth.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "MEA",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS ANZ_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://www.elsevierhealth.com.au/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "ANZ",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS SP_HS,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://tienda.elsevier.es/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "SP",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(statistics.createdAt) AS time_sec,\n  statistics.value AS GLOBAL,\n  statistics.url AS metric\nFROM\n  statistics\nWHERE\n  statistics.name = 'audit_largest-contentful-paint_median' AND\n  statistics.url = 'https://shop.elsevier.com/'\nORDER BY\n  statistics.createdAt ASC;\n",
+          "refId": "GLOBAL",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Largest Contentful Paint (median)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "cdhm6zo6tj400d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 57
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "dataset": "lhci",
+          "datasource": {
+            "type": "mysql",
+            "uid": "cdhm6zo6tj400d"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT\n  name\nFROM\n  statistics\nORDER BY\n  name;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Panel Title",
+      "type": "table"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "lighthouse_test",
+  "uid": "bdhmuf03ehi4gd",
+  "version": 27,
+  "weekStart": ""
+}
