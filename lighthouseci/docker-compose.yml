@@ -19,7 +19,7 @@ services:
     ports:
       - "9001:9001"
     volumes:
-      - /home/kostastseronis/CODE/lhci-server/lighthouserc.json:/usr/src/lhci/lighthouserc.json
+      - /home/kostastseronis/CODE/lhci-server/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json
     networks:
       - lhci-network
 

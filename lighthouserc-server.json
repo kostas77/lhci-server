@@ -1,0 +1,23 @@
+{
+  "ci": {
+    "server": {
+      "port": 9001,
+      "storage": {
+        "storageMethod": "sql",
+        "sqlDialect": "mysql",
+        "sqlHost": "lhci-mysql-db",
+        "sqlPort": 3306,
+        "sqlDatabase": "lhci",
+        "sqlUsername": "kostastseronis",
+        "sqlPassword": "kostas77",
+        "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
+      },
+      "allowDuplicateBuilds": true
+    },
+    "upload": {
+      "target": "lhci",
+      "serverBaseUrl": "http://localhost:9001/",
+      "token": "213def4d-8be4-4b5d-add1-e933f5807b5e"
+    }
+  }
+}
