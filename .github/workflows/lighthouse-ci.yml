@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: npm install, build
-        run: |
-          npm install
-          npm run build
+#      - name: npm install, build
+#        run: |
+#          npm install
+#          npm run build
 
 #      - name: Run Lighthouse CI
 #        run: npx lhci autorun
