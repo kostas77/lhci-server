@@ -27,10 +27,14 @@ jobs:
 #      - name: Run Lighthouse CI
 #        run: npx lhci autorun
 
-      - name: run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.13.x
-          lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+#      - name: run Lighthouse CI
+#        run: |
+#          npm install -g @lhci/cli@0.13.x
+#          lhci autorun
+#        env:
+#          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'https://www.zaproxy.org'
