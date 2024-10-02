@@ -10,7 +10,7 @@
         "sqlDatabase": "lhci",
         "sqlUsername": "kostastseronis",
         "sqlPassword": "kostas77",
-        "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
+        "sqlConnectionUrl": "mysql://kostastseronis:pass@lhci-mysql-db:3306/lhci"
       },
       "allowDuplicateBuilds": true
     },
