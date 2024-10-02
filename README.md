@@ -8,7 +8,7 @@
 
 
 - Start the docker container for the LHCI MYSQL DB:
-`docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=kostas77 -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql`
+`docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=pass -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql`
 
 - Login to the MYSQL DB docker instance to do the initial setup:
 `docker exec -it lhci-mysql-db mysql -uroot -p`
