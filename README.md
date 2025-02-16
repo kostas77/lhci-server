@@ -1,6 +1,6 @@
 ## LHCI SERVER AND DATABASE INSTALLATION
 
-- Removing any old doceker network:
+- Removing any old docker network:
 `docker network rm lhci-network`
 
 - Create a new docker network:
@@ -8,17 +8,17 @@
 
 
 - Start the docker container for the LHCI MYSQL DB:
-`docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=pass -v /home/kostastseronis/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql`
+`docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=pass -v /home/tseronisk/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql`
 
 - Login to the MYSQL DB docker instance to do the initial setup:
 `docker exec -it lhci-mysql-db mysql -uroot -p`
 
 - Initial setup of the LHCI MYSQL DB:
-`CREATE DATABASE lhci;CREATE USER 'kostastseronis'@'%' IDENTIFIED BY 'kostas77';GRANT ALL PRIVILEGES ON lhci.* TO 'kostastseronis'@'%';FLUSH PRIVILEGES;`
+`CREATE DATABASE lhci;CREATE USER 'tseronisk'@'%' IDENTIFIED BY 'kostas77';GRANT ALL PRIVILEGES ON lhci.* TO 'tseronisk'@'%';FLUSH PRIVILEGES;`
 
 
 - Start the docker container for the LHCI SERVER:
-`docker run -d -p 9001:9001 --name lhci-server --network lhci-network -v /home/kostastseronis/CODE/lhci-server/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json patrickhulce/lhci-server`
+`docker run -d -p 9001:9001 --name lhci-server --network lhci-network -v /home/tseronisk/CODE/lhci-server/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json patrickhulce/lhci-server`
 
 Here's what each component of the previous command does:
 ```
