@@ -10,12 +10,12 @@
 - Start the docker container for the LHCI MYSQL DB:
 `docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=pass -v /home/tseronisk/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql`
 
-- Login to the MYSQL DB docker instance to do the initial setup:
+- Login to the MYSQL DB docker instance to do the initial setup (password: pass):
 `docker exec -it lhci-mysql-db mysql -uroot -p`
 
 - Initial setup of the LHCI MYSQL DB:
 `CREATE DATABASE lhci;CREATE USER 'tseronisk'@'%' IDENTIFIED BY 'kostas77';GRANT ALL PRIVILEGES ON lhci.* TO 'tseronisk'@'%';FLUSH PRIVILEGES;`
-
+`exit`
 
 - Start the docker container for the LHCI SERVER:
 `docker run -d -p 9001:9001 --name lhci-server --network lhci-network -v /home/tseronisk/CODE/lhci-server/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json patrickhulce/lhci-server`
@@ -55,7 +55,7 @@ Here's a rough outline of how you can manually create a new project using the Li
 curl -X POST "http://localhost:9001/v1/projects" \
      -H "Content-Type: application/json" \
      -d '{
-         "name": "eCommerce-B2C-pdp-mobile",
+         "name": "eCommerce-B2C-pdp-desktop",
          "externalUrl": "",
          "slug": "eCom-B2C"
        }'
@@ -63,10 +63,10 @@ curl -X POST "http://localhost:9001/v1/projects" \
 - **Responses for current LHCI projects:**
 
 ```
-{"name":"eCommerce-B2C-pdp-desktop","externalUrl":"","slug":"ecommerce-b2c-pdp-desktop","baseBranch":"master","adminToken":"YPIUT68mwi8p9KoQArlohfJXMnW6DvgoRizVWcIn","token":"2150a3b5-6fe7-4ea6-8c06-c534d3f58532","id":"6e168c25-aabf-4a84-a662-6f2c486c73d7","updatedAt":"2024-04-06T10:58:45.588Z","createdAt":"2024-04-06T10:58:45.588Z"}
-{"name":"eCommerce-B2C-home-desktop","externalUrl":"","slug":"ecommerce-b2c-home-desktop","baseBranch":"master","adminToken":"TV0ad0FZ47ZBylbMLE4N91V6ut89MVEhaE6l0uRl","token":"f5ad96cf-6814-470a-b0c8-314467790608","id":"a1e03d52-2032-43a0-a286-9ae1f131c9cb","updatedAt":"2024-04-06T10:59:34.382Z","createdAt":"2024-04-06T10:59:34.382Z"}
-{"name":"eCommerce-B2C-home-mobile","externalUrl":"","slug":"ecommerce-b2c-home-mobile","baseBranch":"master","adminToken":"g2FUuHl9MllooiXtsY4mV5wqZOqMqm5nsZgXmLho","token":"61fa7483-40ba-42ee-b1d1-c5f6666aeb1c","id":"38bec0e5-0709-4f61-a21d-fc16976860a3","updatedAt":"2024-04-06T11:00:25.903Z","createdAt":"2024-04-06T11:00:25.903Z"}
-{"name":"eCommerce-B2C-pdp-mobile","externalUrl":"","slug":"ecommerce-b2c-pdp-mobile","baseBranch":"master","adminToken":"ckIs7EqCH5blHeTViJ3gWj9Xk7wPbllVOMRsU9jX","token":"206da5ef-a7c2-4846-9c01-09b735aaa75d","id":"3a8584cf-0345-4851-b769-ff24432a6997","updatedAt":"2024-04-06T11:00:44.615Z","createdAt":"2024-04-06T11:00:44.615Z"}
+{"name":"eCommerce-B2C-pdp-desktop","externalUrl":"","slug":"ecommerce-b2c-pdp-desktop","baseBranch":"master","adminToken":"l45ATleegclW5avKdhRAIUW4CClAuwJrMRCuCexX","token":"5a2b4932-6313-470c-9c79-982d06c0618d","id":"4918737b-68a3-4280-952a-b47089bc3517","updatedAt":"2025-02-16T15:34:30.913Z","createdAt":"2025-02-16T15:34:30.913Z"}
+{"name":"eCommerce-B2C-home-desktop","externalUrl":"","slug":"ecommerce-b2c-home-desktop","baseBranch":"master","adminToken":"zSxQt4u4Y07Rn8ASbqRm9F9kQNEtaBloWLJms3FM","token":"c7f2d5b2-0fb7-4708-8435-ec3777096089","id":"1a324cda-8e2a-4632-a2f2-40ced62e7d3e","updatedAt":"2025-02-16T15:33:30.624Z","createdAt":"2025-02-16T15:33:30.624Z"}
+{"name":"eCommerce-B2C-home-mobile","externalUrl":"","slug":"ecommerce-b2c-home-mobile","baseBranch":"master","adminToken":"ReCVIjwMydcaQqB58llKD3lrbg5wiBp3x1ZxhlTx","token":"e584afb8-62e0-4bbd-b6aa-77d4f1e17446","id":"ed7336f7-d190-4b93-aa7a-6977214fdb43","updatedAt":"2025-02-16T15:32:59.389Z","createdAt":"2025-02-16T15:32:59.389Z"}
+{"name":"eCommerce-B2C-pdp-mobile","externalUrl":"","slug":"ecommerce-b2c-pdp-mobile","baseBranch":"master","adminToken":"8JrzADhWRx0B24WzgjH2uL5tbo0A3NzU26QAtkhs","token":"6d5fe580-5999-464e-9d87-1aafb6cefd62","id":"c19e4c91-bfea-48b1-a57f-b9af9563a9aa","updatedAt":"2025-02-16T15:31:42.755Z","createdAt":"2025-02-16T15:31:42.755Z"}
 ```
 
 

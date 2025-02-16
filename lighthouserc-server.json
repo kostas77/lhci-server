@@ -8,9 +8,9 @@
         "sqlHost": "lhci-mysql-db",
         "sqlPort": 3306,
         "sqlDatabase": "lhci",
-        "sqlUsername": "kostastseronis",
-        "sqlPassword": "pass",
-        "sqlConnectionUrl": "mysql://kostastseronis:pass@lhci-mysql-db:3306/lhci"
+        "sqlUsername": "tseronisk",
+        "sqlPassword": "kostas77",
+        "sqlConnectionUrl": "mysql://tseronisk:kostas77@lhci-mysql-db:3306/lhci"
       },
       "allowDuplicateBuilds": true
     },

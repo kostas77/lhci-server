@@ -8,16 +8,16 @@
         "sqlHost": "lhci-mysql-db",
         "sqlPort": 3306,
         "sqlDatabase": "lhci",
-        "sqlUsername": "kostastseronis",
+        "sqlUsername": "tseronisk",
         "sqlPassword": "kostas77",
-        "sqlConnectionUrl": "mysql://kostastseronis:kostas77@lhci-mysql-db:3306/lhci"
+        "sqlConnectionUrl": "mysql://tseronisk:kostas77@lhci-mysql-db:3306/lhci"
       },
       "allowDuplicateBuilds": true
     },
     "upload": {
       "target": "lhci",
       "serverBaseUrl": "http://localhost:9001/",
-      "token": "2150a3b5-6fe7-4ea6-8c06-c534d3f58532"
+      "token": "5a2b4932-6313-470c-9c79-982d06c0618d"
     },
     "collect": {
       "numberOfRuns": 3,
