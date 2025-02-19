@@ -10,7 +10,7 @@ scrape_configs:
 #  - url: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push
 #    basic_auth:
 #      username: 1506095
-#      password: glc_eyJvIjoiMTA5MDc1MSIsIm4iOiJzdGFjay04OTYxNzAtaG0td3JpdGUtZ3JhZmFuYS1wcm9tZXRoZXVzLWxoY2ktYXBpLXRva2VuIiwiayI6InM1Nk5rUjY4amU3VDJzMGhSZjQ1OFZzYyIsIm0iOnsiciI6InByb2QtZXUtd2VzdC0yIn19
+#      password: 
 
 #curl -u "1506095:glc_eyJvIjoiMTA5MDc1MSIsIm4iOiJzdGFjay04OTYxNzAtaG0td3JpdGUtZ3JhZmFuYS1wcm9tZXRoZXVzLWxoY2ktYXBpLXRva2VuIiwiayI6InM1Nk5rUjY4amU3VDJzMGhSZjQ1OFZzYyIsIm0iOnsiciI6InByb2QtZXUtd2VzdC0yIn19" -X GET "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/v1/status/config"
 #curl -u "1506095:glc_eyJvIjoiMTA5MDc1MSIsIm4iOiJzdGFjay04OTYxNzAtaG0td3JpdGUtZ3JhZmFuYS1wcm9tZXRoZXVzLWxoY2ktYXBpLXRva2VuIiwiayI6InM1Nk5rUjY4amU3VDJzMGhSZjQ1OFZzYyIsIm0iOnsiciI6InByb2QtZXUtd2VzdC0yIn19" -X GET "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/v1/targets"
