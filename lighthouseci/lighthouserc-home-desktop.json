@@ -17,7 +17,7 @@
     "upload": {
       "target": "lhci",
       "serverBaseUrl": "http://localhost:9001/",
-      "token": "c7f2d5b2-0fb7-4708-8435-ec3777096089"
+      "token": "6813feb2-6c86-4e6b-9040-e40f6b59c2c4"
     },
     "collect": {
       "numberOfRuns": 3,

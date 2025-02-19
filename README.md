@@ -6,19 +6,25 @@
 - Create a new docker network:
 `docker network create lhci-network`
 
-
 - Start the docker container for the LHCI MYSQL DB:
-`docker run -d -p 3306:3306 --name lhci-mysql-db --network lhci-network -e MYSQL_ROOT_PASSWORD=pass -v /home/tseronisk/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql`
+`docker rm lhci-mysql-db
+docker run -d --name lhci-mysql-db --network lhci-network -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_USER=tseronisk -e MYSQL_PASSWORD=kostas77 -e MYSQL_DATABASE=lhci -v /home/tseronisk/CODE/lhci-server/lhci-mysql-db-data:/var/lib/mysql mysql --bind-address=0.0.0.0`
 
 - Login to the MYSQL DB docker instance to do the initial setup (password: pass):
-`docker exec -it lhci-mysql-db mysql -uroot -p`
+`docker exec -it lhci-mysql-db mysql -uroot -ppass`
 
 - Initial setup of the LHCI MYSQL DB:
-`CREATE DATABASE lhci;CREATE USER 'tseronisk'@'%' IDENTIFIED BY 'kostas77';GRANT ALL PRIVILEGES ON lhci.* TO 'tseronisk'@'%';FLUSH PRIVILEGES;`
+`CREATE DATABASE lhci;
+CREATE USER 'tseronisk'@'%' IDENTIFIED WITH mysql_native_password BY 'kostas77';
+GRANT ALL PRIVILEGES ON lhci.* TO 'tseronisk'@'%';
+FLUSH PRIVILEGES;`
 `exit`
 
+`docker restart lhci-mysql-db`
+
 - Start the docker container for the LHCI SERVER:
-`docker run -d -p 9001:9001 --name lhci-server --network lhci-network -v /home/tseronisk/CODE/lhci-server/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json patrickhulce/lhci-server`
+`docker rm lhci-server
+docker run -d -p 9001:9001 --name lhci-server --network lhci-network -v /home/tseronisk/CODE/lhci-server/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json patrickhulce/lhci-server`
 
 Here's what each component of the previous command does:
 ```
@@ -27,6 +33,51 @@ Here's what each component of the previous command does:
 -p 9001:9001: This binds port 9001 of your host machine to port 9001 of the container, which is the port LHCI server runs on.
 -v /home/ec2-user/lighthouserc-server.json:/usr/src/lhci/lighthouserc.json: This mounts the lighthouserc.json file from your host machine to the specified path in the container. This ensures that when LHCI runs inside the container, it uses your configuration.patrickhulce/lhci-server: This is the name of the Docker image you're using.
 ```
+- Remember to setup port forwarding on the router at this point, so the DB is accessible publically (e.g Grafana Cloud)
+
+
+---------------------------------- FOLOWING STEPS NOT RELEVANT ANYMORE -------------------------------
+Run the MySQL exporter for Prometheus
+
+create a .my.cnf file for MySQL exporter
+`nano ~/lhci-mysql-exporter.cnf`
+```[client]
+user=tseronisk
+password=kostas77
+host=lhci-mysql-db
+port=3306
+```
+
+`docker run -d --name mysql-exporter --network lhci-network -p 9104:9104 -v ~/lhci-mysql-exporter.cnf:/etc/mysql/my.cnf prom/mysqld-exporter --config.my-cnf=/etc/mysql/my.cnf`
+
+Verify it's running:
+```docker ps
+docker logs mysql-exporter
+curl http://localhost:9104/metrics
+```
+
+Create a rometheus.yml file
+```global:
+  scrape_interval: 15s  # How often Prometheus collects metrics
+
+scrape_configs:
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['mysql-exporter:9104']  # This must match the MySQL Exporter container name
+```
+
+Run Prometheus wih Docker:
+```docker stop prometheus
+docker rm prometheus
+docker run -d --name prometheus --network lhci-network \
+  -p 9090:9090 \
+  -v ~/CODE/lhci-server/prometheus.yml:/etc/prometheus/prometheus.yml \
+  prom/prometheus
+```
+
+---------------------------------- ABOVE STEPS NOT RELEVANT ANYMORE -------------------------------
+
+
 
 Here's a rough outline of how you can manually create a new project using the Lighthouse CI server API:
 
@@ -55,7 +106,7 @@ Here's a rough outline of how you can manually create a new project using the Li
 curl -X POST "http://localhost:9001/v1/projects" \
      -H "Content-Type: application/json" \
      -d '{
-         "name": "eCommerce-B2C-pdp-desktop",
+         "name": "eCommerce-B2C-pdp-mobile",
          "externalUrl": "",
          "slug": "eCom-B2C"
        }'
@@ -63,10 +114,10 @@ curl -X POST "http://localhost:9001/v1/projects" \
 - **Responses for current LHCI projects:**
 
 ```
-{"name":"eCommerce-B2C-pdp-desktop","externalUrl":"","slug":"ecommerce-b2c-pdp-desktop","baseBranch":"master","adminToken":"l45ATleegclW5avKdhRAIUW4CClAuwJrMRCuCexX","token":"5a2b4932-6313-470c-9c79-982d06c0618d","id":"4918737b-68a3-4280-952a-b47089bc3517","updatedAt":"2025-02-16T15:34:30.913Z","createdAt":"2025-02-16T15:34:30.913Z"}
-{"name":"eCommerce-B2C-home-desktop","externalUrl":"","slug":"ecommerce-b2c-home-desktop","baseBranch":"master","adminToken":"zSxQt4u4Y07Rn8ASbqRm9F9kQNEtaBloWLJms3FM","token":"c7f2d5b2-0fb7-4708-8435-ec3777096089","id":"1a324cda-8e2a-4632-a2f2-40ced62e7d3e","updatedAt":"2025-02-16T15:33:30.624Z","createdAt":"2025-02-16T15:33:30.624Z"}
-{"name":"eCommerce-B2C-home-mobile","externalUrl":"","slug":"ecommerce-b2c-home-mobile","baseBranch":"master","adminToken":"ReCVIjwMydcaQqB58llKD3lrbg5wiBp3x1ZxhlTx","token":"e584afb8-62e0-4bbd-b6aa-77d4f1e17446","id":"ed7336f7-d190-4b93-aa7a-6977214fdb43","updatedAt":"2025-02-16T15:32:59.389Z","createdAt":"2025-02-16T15:32:59.389Z"}
-{"name":"eCommerce-B2C-pdp-mobile","externalUrl":"","slug":"ecommerce-b2c-pdp-mobile","baseBranch":"master","adminToken":"8JrzADhWRx0B24WzgjH2uL5tbo0A3NzU26QAtkhs","token":"6d5fe580-5999-464e-9d87-1aafb6cefd62","id":"c19e4c91-bfea-48b1-a57f-b9af9563a9aa","updatedAt":"2025-02-16T15:31:42.755Z","createdAt":"2025-02-16T15:31:42.755Z"}
+{"name":"eCommerce-B2C-pdp-desktop","externalUrl":"","slug":"ecommerce-b2c-pdp-desktop","baseBranch":"master","adminToken":"qzdluIprNJ1U3KJ2qddpSAk3fzozWlXhOMoqJq9S","token":"c5af7b19-3a0b-4b2e-a5e6-24c6133924fe","id":"02e42ca6-e6dd-46db-94f9-390dbf63e69a","updatedAt":"2025-02-19T13:28:45.787Z","createdAt":"2025-02-19T13:28:45.787Z"}
+{"name":"eCommerce-B2C-home-desktop","externalUrl":"","slug":"ecommerce-b2c-home-desktop","baseBranch":"master","adminToken":"Ol2ZhM4jmalAhnkmdXyyKIzX7dFslZ3Nl94pWvQj","token":"6813feb2-6c86-4e6b-9040-e40f6b59c2c4","id":"3e63a681-1775-4f0c-b05e-324415b16332","updatedAt":"2025-02-19T13:29:21.082Z","createdAt":"2025-02-19T13:29:21.082Z"}
+{"name":"eCommerce-B2C-home-mobile","externalUrl":"","slug":"ecommerce-b2c-home-mobile","baseBranch":"master","adminToken":"xqllCJBup6lSlM0OYgUA4mosMqHoP0RPN3Hljro2","token":"5d18c773-4aa1-418b-a6fd-73bc21458f67","id":"93137a60-e425-41af-9649-e2e14bf845d5","updatedAt":"2025-02-19T13:29:48.620Z","createdAt":"2025-02-19T13:29:48.620Z"}
+{"name":"eCommerce-B2C-pdp-mobile","externalUrl":"","slug":"ecommerce-b2c-pdp-mobile","baseBranch":"master","adminToken":"fOw2WgIowFq5h6f0T2pzZ0zCxXKr8MtREu1ckWIW","token":"b8c469dc-3fca-4fca-a9cb-d0c15803741c","id":"37d289fb-da9e-4fa1-a4b9-26cf6a00b629","updatedAt":"2025-02-19T13:30:19.501Z","createdAt":"2025-02-19T13:30:19.501Z"}
 ```
 
 
@@ -88,6 +139,9 @@ export LHCI_BUILD_CONTEXT__AUTHOR='tseronisk'
 export LHCI_BUILD_CONTEXT__AVATAR_URL='N\\A'
 export LHCI_BUILD_CONTEXT__COMMIT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 #export LHCI_GITHUB_TOKEN='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'
+
+# Ensure npm uses the correct path
+export PATH=$HOME/.npm-global/bin:$PATH
 
 sudo apt update
 #sudo apt-get install fonts-liberation
